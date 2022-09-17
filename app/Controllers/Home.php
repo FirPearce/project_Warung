@@ -20,9 +20,4 @@ class Home extends BaseController
     {
         return view('landingpage/product');
     }
-
-    public function admin()
-    {
-        return view('admin/home');
-    }
 }
