@@ -9,6 +9,7 @@ class Supplier extends BaseController
     public function __construct()
     {
         $this->UserModel = new UserModel();
+        $this->session = \Config\Services::session();
     }
 
     public function index()

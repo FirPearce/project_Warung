@@ -26,11 +26,10 @@ class Login extends BaseController
     public function proseslogin()
     {
         $data = $this->request->getPost();
-        dd($data);
         if ($data) {
             $user = $this->UserModel->where('username', $data['username'])->first();
             if ($user) {
-                if (password_verify($data['password'], $user['password'])) {
+                if (password_verify($data['pass'], $user['password'])) {
                     $this->session->set('username', $user['username']);
                     $this->session->set('id_user', $user['id_user']);
                     $this->session->set('is_login', true);

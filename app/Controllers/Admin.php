@@ -11,10 +11,17 @@ class Admin extends BaseController
     {
         $this->UserModel = new UserModel();
         $this->PelangganModel = new PelangganModel();
+        $this->session = \Config\Services::session();
     }
 
     public function admin()
     {
-        return view('admin/home');
+        if ($this->session->get('id_user') != null) {
+            if ($this->session->get('role') == 'Admin') {
+                return view('admin/home');
+            } else {
+                return redirect()->to(base_url('Login/login'));
+            }
+        }
     }
 }
