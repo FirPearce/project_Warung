@@ -49,12 +49,73 @@ class Admin extends BaseController
             }
         }
     }
+
     public function daftarPendapatan()
     {
         if ($this->session->get('id_user') != null) {
             if ($this->session->get('role') == 'Admin') {
 
                 return view('admin/daftarPendapatan');
+            } else {
+                return redirect()->to(base_url('Login/login'));
+            }
+        }
+    }
+
+    public function hitungbelanja()
+    {
+        if ($this->session->get('id_user') != null) {
+            if ($this->session->get('role') == 'Admin') {
+
+                return view('admin/hitungBelanja');
+            } else {
+                return redirect()->to(base_url('Login/login'));
+            }
+        }
+    }
+
+    public function daftarproduk()
+    {
+        if ($this->session->get('id_user') != null) {
+            if ($this->session->get('role') == 'Admin') {
+
+                return view('admin/daftarProduk');
+            } else {
+                return redirect()->to(base_url('Login/login'));
+            }
+        }
+    }
+
+    public function informasipelanggan()
+    {
+        if ($this->session->get('id_user') != null) {
+            if ($this->session->get('role') == 'Admin') {
+
+                return view('admin/informasiPelanggan');
+            } else {
+                return redirect()->to(base_url('Login/login'));
+            }
+        }
+    }
+
+    public function informasisupplier()
+    {
+        if ($this->session->get('id_user') != null) {
+            if ($this->session->get('role') == 'Admin') {
+
+                return view('admin/informasiSupplier');
+            } else {
+                return redirect()->to(base_url('Login/login'));
+            }
+        }
+    }
+
+    public function konten()
+    {
+        if ($this->session->get('id_user') != null) {
+            if ($this->session->get('role') == 'Admin') {
+
+                return view('admin/konten');
             } else {
                 return redirect()->to(base_url('Login/login'));
             }

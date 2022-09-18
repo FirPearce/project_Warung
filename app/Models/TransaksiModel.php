@@ -20,4 +20,13 @@ class TransaksiModel extends Model
             return $data['total'];
         }
     }
+
+    public function daftartransaksi()
+    {
+        $data = $this->select('tbl_transaksi.*, tbl_pembeli.nama_pembeli')
+            ->join('tbl_pembeli', 'tbl_pembeli.id_pembeli = tbl_transaksi.id_pembeli')
+            ->orderBy('tbl_transaksi.id_transaksi', 'DESC')
+            ->findAll();
+        return $data;
+    }
 }

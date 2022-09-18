@@ -140,7 +140,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="<?= base_url('Admin/daftarPendapatan'); ?>">Daftar Pendapatan</a></li>
-                            <li><a href="#">Hitung Belanja</a></li>
+                            <li><a href="<?= base_url('Admin/hitungbelanja'); ?>">Hitung Belanja</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">Barang</li>
@@ -149,7 +149,7 @@
                             <i class='fas fa-box-open'></i><span class="nav-text">Produk</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Daftar Produk</a></li>
+                            <li><a href="<?= base_url('Admin/daftarproduk'); ?>">Daftar Produk</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">Menu Lainnya</li>
@@ -158,8 +158,8 @@
                             <i class="fa fa-info-circle" aria-hidden="true"></i> <span class="nav-text">Informasi</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Informasi Pelanggan</a></li>
-                            <li><a href="#">Informasi Supplier</a></li>
+                            <li><a href="<?= base_url('Admin/informasipelanggan'); ?>">Informasi Pelanggan</a></li>
+                            <li><a href="<?= base_url('Admin/informasisupplier'); ?>">Informasi Supplier</a></li>
                         </ul>
                     </li>
                     <li>
@@ -167,9 +167,7 @@
                             <i class="fa fa-file"></i> <span class="nav-text">Konten Website</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Halaman Home</a></li>
-                            <li><a href="#">Halaman About Us</a></li>
-                            <li><a href="#">Diskon</a></li>
+                            <li><a href="<?= base_url('Admin/konten'); ?>">Konten Website</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -231,6 +229,9 @@
     <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
+    <!-- validation -->
+    <script src="<?= base_url(); ?>/assetsadmin/plugins/validation/jquery.validate.min.js"></script>
+    <script src="<?= base_url(); ?>/assetsadmin/plugins/validation/jquery.validate-init.js"></script>
     <script>
         /* Dengan Rupiah */
         var dengan_rupiah = document.getElementById('dengan-rupiah');
