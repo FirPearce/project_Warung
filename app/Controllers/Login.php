@@ -11,6 +11,7 @@ class Login extends BaseController
     {
         $this->UserModel = new UserModel();
         $this->PelangganModel = new PelangganModel();
+        $this->session = \Config\Services::session();
     }
     public function login()
     {
@@ -26,6 +27,32 @@ class Login extends BaseController
     {
         $data = $this->request->getPost();
         dd($data);
+        if ($data) {
+            $user = $this->UserModel->where('username', $data['username'])->first();
+            if ($user) {
+                if (password_verify($data['password'], $user['password'])) {
+                    $this->session->set('username', $user['username']);
+                    $this->session->set('id_user', $user['id_user']);
+                    $this->session->set('is_login', true);
+                    if ($user['role'] == 'Supplier') {
+                        $this->session->set('role', $user['role']);
+                        return redirect()->to(base_url('Supplier/index'));
+                    } else if ($user['role'] == 'Pelanggan') {
+                        $this->session->set('role', $user['role']);
+                        return redirect()->to(base_url('Pelanggan/index'));
+                    } else {
+                        $this->session->set('role', $user['role']);
+                        return redirect()->to(base_url('Admin/admin'));
+                    }
+                } else {
+                    $this->session->setFlashdata('error', 'Password salah');
+                    return redirect()->to(base_url('Login/login'));
+                }
+            } else {
+                $this->session->setFlashdata('error', 'Username tidak ditemukan');
+                return redirect()->to(base_url('Login/login'));
+            }
+        }
     }
 
     public function prosesdaftar()
