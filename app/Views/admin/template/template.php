@@ -16,6 +16,7 @@
     <!-- Custom Stylesheet -->
     <link href="<?= base_url(); ?>/assetsadmin/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url(); ?>/assetsadmin/icons/font-awesome/css/font-awesome.min.css">
+    <link href="<?= base_url(); ?>/assetsadmin/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
@@ -129,7 +130,7 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="<?= base_url('Home/admin'); ?>">Home</a></li>
+                            <li><a href="<?= base_url('Admin/admin'); ?>">Home</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">Fitur</li>
@@ -138,7 +139,7 @@
                             <i class="icon-calculator menu-icon"></i> <span class="nav-text">Kalkulator</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Daftar Pendapatan</a></li>
+                            <li><a href="<?= base_url('Admin/daftarPendapatan'); ?>">Daftar Pendapatan</a></li>
                             <li><a href="#">Hitung Belanja</a></li>
                         </ul>
                     </li>
@@ -225,6 +226,35 @@
 
     <script src="<?= base_url(); ?>/assetsadmin/js/dashboard/dashboard-1.js"></script>
 
+    <!-- datatables -->
+    <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+    <script>
+        /* Dengan Rupiah */
+        var dengan_rupiah = document.getElementById('dengan-rupiah');
+        dengan_rupiah.addEventListener('keyup', function(e) {
+            dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+        });
+
+        /* Fungsi */
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+    </script>
 </body>
 
 </html>

@@ -10,4 +10,14 @@ class TransaksiModel extends Model
     protected $primaryKey = 'id_transaksi';
     protected $useTimestamp = true;
     protected $allowedFields = ['id_pembeli', 'tanggal_transaksi', 'keterangan', 'total', 'created_at', 'updated_at'];
+
+    public function pendapatan()
+    {
+        $data = $this->selectSum('total')->get()->getRowArray();
+        if ($data == null) {
+            return 0;
+        } else {
+            return $data['total'];
+        }
+    }
 }

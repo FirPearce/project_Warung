@@ -10,4 +10,10 @@ class PelangganModel extends Model
     protected $primaryKey = 'id_pembeli';
     protected $useTimestamp = true;
     protected $allowedFields = ['id_user', 'nama_pembeli', 'no_telp', 'email', 'alamat', 'created_at', 'updated_at'];
+
+    public function totalpelanggan()
+    {
+        $data = $this->selectCount('id_pembeli')->get()->getRowArray();
+        return $data['id_pembeli'];
+    }
 }
