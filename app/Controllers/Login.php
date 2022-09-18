@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
 use App\Models\PelangganModel;
+use App\Models\UserModel;
 
 class Login extends BaseController
 {
@@ -88,5 +88,11 @@ class Login extends BaseController
                 return redirect()->to(base_url('Login/register'));
             }
         }
+    }
+
+    public function logout()
+    {
+        $this->session->destroy();
+        return redirect()->to(base_url('Login/login'));
     }
 }

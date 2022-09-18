@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>Halaman Admin</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url(); ?>/assetsadmin/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url(); ?>/assets/img/logo.png">
     <!-- Pignose Calender -->
     <link href="<?= base_url(); ?>/assetsadmin/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -46,7 +46,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="<?= base_url('Home/admin'); ?>">
+                <a href="<?= base_url('Admin/admin'); ?>">
                     <span class="brand-title">
                         <img src="<?= base_url(); ?>/assets/img/logo.png" alt="" style="margin-top: -24%; margin-left: -10%;">
                     </span>
@@ -104,7 +104,7 @@
                                         <!-- <li>
                                             <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
                                         </li> -->
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                        <li><a href="<?= base_url('Login/logout'); ?>"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
                             </div>
