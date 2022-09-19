@@ -13,7 +13,7 @@
                         <h4 class="card-title">Transaksi Hari ini</h4>
                         <div class="row">
                             <div class="col-md-2">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="icon-plus"></i> Buat Pesanan</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="icon-plus"></i> Tambah Transaksi</button>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -57,30 +57,84 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Transaksi Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form action="#" method="POST">
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="nama-pembeli" class="col-form-label">Nama Pembeli</label>
+                            <select class="selectpicker" data-live-search="true" data-width="100%">
+                                <option data-tokens="" value="">Pilih Pembeli</option>
+                                <option data-tokens="" data-divider="true" value="">Pilih Pembeli</option>
+                                <?php foreach ($namapembeli as $d) : ?>
+                                    <option data-tokens="<?= $d['nama_pembeli']; ?>" value="<?= $d['id_pembeli']; ?>"><?= $d['nama_pembeli']; ?> : <?= $d['email']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">SCAN QR</label>
-                            <div id="qr-reader" style="width: 100%"></div>
+                            <label for="nama-produk" class="col-form-label">Produk</label>
+                            <select class="selectpicker show-tick" data-width="100%" id="scanproduk">
+                                <option value="scanqr">SCAN QR</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="pilihan1">
+                            <label for="produk" class="col-form-label">SCAN QR</label>
+                            <div id="qr-reader" style="width:100%;"></div>
+                        </div>
+                        <div class="form-group" id="pilihan2">
+                            <label for="produk" class="col-form-label">Cari Produk</label>
+                            <select class="selectpicker" data-live-search="true" data-width="100%" multiple data-selected-text-format="count">
+                                <?php foreach ($listproduk as $d) : ?>
+                                    <option data-tokens="<?= $d['kode_barang']; ?>" value="<?= $d['id_barang']; ?>"><?= $d['nama_barang']; ?> : Stok <?= $d['stok']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <label for="message-text" class="col-form-label">Produk Dipilih</label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Produk</th>
+                                            <th>Jumlah</th>
+                                            <th>Harga</th>
+                                            <th>Pilihan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 10%;">1</td>
+                                            <td>Edinburgh</td>
+                                            <td><input type="number"></td>
+                                            <td>61</td>
+                                            <td>
+                                                <a href="" class="btn btn-danger btn-sm-2">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Produk</th>
+                                            <th>Total Produk</th>
+                                            <th>Nilai harga</th>
+                                            <th>Hapus Semua</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-primary">Simpan Transaksi</button>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
-                </div>
+
             </div>
         </div>
     </div>

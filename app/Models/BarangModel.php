@@ -15,7 +15,6 @@ class BarangModel extends Model
     {
         $data = $this->db->table('tbl_barang')
             ->join('tbl_supplier', 'tbl_supplier.id_supplier = tbl_barang.id_supplier')
-            ->join('tbl_harga', 'tbl_harga.id_barang = tbl_barang.id_barang')
             ->get()->getResultArray();
         return $data;
     }

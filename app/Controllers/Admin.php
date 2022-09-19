@@ -70,8 +70,14 @@ class Admin extends BaseController
     {
         if ($this->session->get('id_user') != null) {
             if ($this->session->get('role') == 'Admin') {
-
-                return view('admin/hitungBelanja');
+                $namapembeli = $this->PelangganModel->nama_pembeli();
+                $listproduk = $this->BarangModel->listproduk();
+                $data = [
+                    'title' => 'Hitung Belanja',
+                    'namapembeli' => $namapembeli,
+                    'listproduk' => $listproduk,
+                ];
+                return view('admin/hitungBelanja', $data);
             } else {
                 return redirect()->to(base_url('Login/login'));
             }

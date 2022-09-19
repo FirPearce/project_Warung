@@ -17,6 +17,8 @@
     <link href="<?= base_url(); ?>/assetsadmin/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url(); ?>/assetsadmin/icons/font-awesome/css/font-awesome.min.css">
     <link href="<?= base_url(); ?>/assetsadmin/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
@@ -234,6 +236,9 @@
     <!-- include the library -->
     <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.table').DataTable();
@@ -275,6 +280,25 @@
                 qrbox: 250
             });
         html5QrcodeScanner.render(onScanSuccess);
+    </script>
+    <script>
+        var e = document.getElementById("scanproduk");
+        var pilihan1 = document.getElementById("pilihan1");
+        var pilihan2 = document.getElementById("pilihan2");
+
+        function onChange() {
+            var value = e.value;
+            var text = e.options[e.selectedIndex].text;
+            if (value == "scanqr") {
+                pilihan1.style.display = "block";
+                pilihan2.style.display = "none";
+            } else {
+                pilihan1.style.display = "none";
+                pilihan2.style.display = "block";
+            }
+        }
+        e.onchange = onChange;
+        onChange();
     </script>
 </body>
 

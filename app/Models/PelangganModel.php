@@ -16,4 +16,10 @@ class PelangganModel extends Model
         $data = $this->selectCount('id_pembeli')->get()->getRowArray();
         return $data['id_pembeli'];
     }
+
+    public function nama_pembeli()
+    {
+        $data = $this->select('tbl_pembeli.*')->findAll();
+        return $data;
+    }
 }
