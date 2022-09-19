@@ -225,13 +225,21 @@
     <script src="<?= base_url(); ?>/assetsadmin/js/dashboard/dashboard-1.js"></script>
 
     <!-- datatables -->
-    <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/jquery.dataTables.min.js"></script>
-    <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
-    <script src="<?= base_url(); ?>/assetsadmin/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
     <!-- validation -->
     <script src="<?= base_url(); ?>/assetsadmin/plugins/validation/jquery.validate.min.js"></script>
     <script src="<?= base_url(); ?>/assetsadmin/plugins/validation/jquery.validate-init.js"></script>
+
+    <!-- include the library -->
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable();
+        });
+    </script>
+
     <script>
         /* Dengan Rupiah */
         var dengan_rupiah = document.getElementById('dengan-rupiah');
@@ -255,6 +263,18 @@
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
+    </script>
+
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log(`Code scanned = ${decodedText}`, decodedResult);
+        }
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", {
+                fps: 10,
+                qrbox: 250
+            });
+        html5QrcodeScanner.render(onScanSuccess);
     </script>
 </body>
 

@@ -47,6 +47,8 @@ class Admin extends BaseController
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
+        } else {
+            return redirect()->to(base_url('Login/login'));
         }
     }
 
@@ -59,6 +61,8 @@ class Admin extends BaseController
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
+        } else {
+            return redirect()->to(base_url('Login/login'));
         }
     }
 
@@ -71,6 +75,8 @@ class Admin extends BaseController
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
+        } else {
+            return redirect()->to(base_url('Login/login'));
         }
     }
 
@@ -83,6 +89,8 @@ class Admin extends BaseController
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
+        } else {
+            return redirect()->to(base_url('Login/login'));
         }
     }
 
@@ -95,6 +103,8 @@ class Admin extends BaseController
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
+        } else {
+            return redirect()->to(base_url('Login/login'));
         }
     }
 
@@ -107,6 +117,8 @@ class Admin extends BaseController
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
+        } else {
+            return redirect()->to(base_url('Login/login'));
         }
     }
 
@@ -119,6 +131,8 @@ class Admin extends BaseController
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
+        } else {
+            return redirect()->to(base_url('Login/login'));
         }
     }
 }

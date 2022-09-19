@@ -5,96 +5,47 @@
             Content body start
         ***********************************-->
 <div class="content-body">
-    <div class="container-fluid mt-3">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <div class="card gradient-1">
+            <div class="col-12">
+                <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Products Sold</h3>
-                        <div class="d-inline-block">
-                            <h2 class="text-white">4565</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
-                        </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card gradient-2">
-                    <div class="card-body">
-                        <h3 class="card-title text-white">Net Profit</h3>
-                        <div class="d-inline-block">
-                            <h2 class="text-white">$ 8541</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
-                        </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card gradient-3">
-                    <div class="card-body">
-                        <h3 class="card-title text-white">New Customers</h3>
-                        <div class="d-inline-block">
-                            <h2 class="text-white">4565</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
-                        </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card gradient-4">
-                    <div class="card-body">
-                        <h3 class="card-title text-white">Customer Satisfaction</h3>
-                        <div class="d-inline-block">
-                            <h2 class="text-white">99%</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
-                        </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body pb-0 d-flex justify-content-between">
-                                <div>
-                                    <h4 class="mb-1">Product Sales</h4>
-                                    <p>Total Earnings of the Month</p>
-                                    <h3 class="m-0">$ 12,555</h3>
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li class="d-inline-block mr-3"><a class="text-dark" href="#">Day</a></li>
-                                        <li class="d-inline-block mr-3"><a class="text-dark" href="#">Week</a></li>
-                                        <li class="d-inline-block"><a class="text-dark" href="#">Month</a></li>
-                                    </ul>
-                                </div>
+                        <h4 class="card-title">Transaksi Hari ini</h4>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="icon-plus"></i> Buat Pesanan</button>
                             </div>
-                            <div class="chart-wrapper">
-                                <canvas id="chart_widget_2"></canvas>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div class="w-100 mr-2">
-                                        <h6>Pixel 2</h6>
-                                        <div class="progress" style="height: 6px">
-                                            <div class="progress-bar bg-danger" style="width: 40%"></div>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2 w-100">
-                                        <h6>iPhone X</h6>
-                                        <div class="progress" style="height: 6px">
-                                            <div class="progress-bar bg-primary" style="width: 80%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered datatables">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal Transaksi</th>
+                                        <th>Nama Pembeli</th>
+                                        <th>Total Transaksi</th>
+                                        <th>Pilihan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>System Architect</td>
+                                        <td>Edinburgh</td>
+                                        <td>61</td>
+                                        <td>
+                                            <a href="" class="btn btn-primary">Detail</a>
+                                            <a href="" class="btn btn-danger ">Hapus</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Tanggal Transaksi</th>
+                                        <th>Nama Pembeli</th>
+                                        <th>Total Transaksi</th>
+                                        <th>Pilihan</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -102,6 +53,37 @@
         </div>
     </div>
     <!-- #/ container -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">SCAN QR</label>
+                            <div id="qr-reader" style="width: 100%"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--**********************************
             Content body end
