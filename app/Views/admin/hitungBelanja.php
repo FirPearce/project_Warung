@@ -65,13 +65,19 @@
                     <form action="#" method="POST">
                         <div class="form-group">
                             <label for="nama-pembeli" class="col-form-label">Nama Pembeli</label>
-                            <select class="selectpicker" data-live-search="true" data-width="100%">
-                                <option data-tokens="" value="">Pilih Pembeli</option>
+                            <select class="selectpicker show-tick" data-live-search="true" data-width="100%" id="nama-pembeli">
+                                <option data-tokens="" value="">Pilih Pembeli atau Tambah Pembeli</option>
                                 <option data-tokens="" data-divider="true" value="">Pilih Pembeli</option>
                                 <?php foreach ($namapembeli as $d) : ?>
                                     <option data-tokens="<?= $d['nama_pembeli']; ?>" value="<?= $d['id_pembeli']; ?>"><?= $d['nama_pembeli']; ?> : <?= $d['email']; ?></option>
                                 <?php endforeach; ?>
+                                <option data-tokens="" data-divider="true" value="">Pilih Pembeli</option>
+                                <option data-tokens="" value="tambah">(+)Pembeli tidak ada(Tambah Pembeli)</option>
                             </select>
+                        </div>
+                        <div class="form-group" id="tambah_pembeli">
+                            <label for="tambah_pembeli" class="col-form-label">Tambah Nama Pembeli Baru</label>
+                            <input type="text" class="form-control" name="tambah_pembeli" placeholder="Nama Pembeli Baru">
                         </div>
                         <div class="form-group">
                             <label for="nama-produk" class="col-form-label">Produk</label>
@@ -86,7 +92,7 @@
                         </div>
                         <div class="form-group" id="pilihan2">
                             <label for="produk" class="col-form-label">Cari Produk</label>
-                            <select class="selectpicker" data-live-search="true" data-width="100%" multiple data-selected-text-format="count">
+                            <select class="selectpicker" data-live-search="true" data-width="100%" multiple data-selected-text-format="count" id="nama-barang">
                                 <?php foreach ($listproduk as $d) : ?>
                                     <option data-tokens="<?= $d['kode_barang']; ?>" value="<?= $d['id_barang']; ?>"><?= $d['nama_barang']; ?> : Stok <?= $d['stok']; ?></option>
                                 <?php endforeach; ?>
@@ -105,18 +111,10 @@
                                             <th>Pilihan</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="width: 10%;">1</td>
-                                            <td>Edinburgh</td>
-                                            <td><input type="number"></td>
-                                            <td>61</td>
-                                            <td>
-                                                <a href="" class="btn btn-danger btn-sm-2">Hapus</a>
-                                            </td>
-                                        </tr>
+                                    <tbody id="carttable">
+
                                     </tbody>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Produk</th>
@@ -124,13 +122,13 @@
                                             <th>Nilai harga</th>
                                             <th>Hapus Semua</th>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot> -->
                                 </table>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary">Simpan Transaksi</button>
+                            <button type="button" class="btn btn-primary">Checkout</button>
                         </div>
                     </form>
                 </div>

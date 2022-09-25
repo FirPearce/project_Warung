@@ -300,6 +300,45 @@
         e.onchange = onChange;
         onChange();
     </script>
+    <script>
+        var id_pembeli;
+        var id_barang;
+        var tambah_pembeli = document.getElementById("tambah_pembeli");
+        tambah_pembeli.style.display = "none";
+        $("#nama-pembeli").change(function() {
+            id_pembeli = $(this).val();
+            if (id_pembeli == "tambah") {
+                tambah_pembeli.style.display = "block";
+            } else {
+                tambah_pembeli.style.display = "none";
+                $.ajax({
+                    url: "<?= base_url('admin/showcart'); ?>",
+                    method: "POST",
+                    data: {
+                        id_pembeli: id_pembeli
+                    },
+                    success: function(data) {
+                        $('#carttable').html(data);
+                        $('.table').DataTable();
+                    }
+                })
+            }
+        });
+        $("#nama-barang").change(function() {
+            id_barang = $(this).val();
+            $.ajax({
+                url: "<?= base_url('Admin/addcart'); ?>",
+                method: "POST",
+                data: {
+                    id_pembeli: id_pembeli,
+                    id_barang: id_barang
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

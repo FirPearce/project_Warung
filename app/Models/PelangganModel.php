@@ -9,7 +9,7 @@ class PelangganModel extends Model
     protected $table = 'tbl_pembeli';
     protected $primaryKey = 'id_pembeli';
     protected $useTimestamp = true;
-    protected $allowedFields = ['id_user', 'nama_pembeli', 'no_telp', 'email', 'alamat', 'created_at', 'updated_at'];
+    protected $allowedFields = ['id_user', 'nama_pembeli', 'tipe', 'no_telp', 'email', 'alamat', 'created_at', 'updated_at'];
 
     public function totalpelanggan()
     {

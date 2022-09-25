@@ -11,6 +11,7 @@ use App\Models\HargaModel;
 use App\Models\TransaksiBarangModel;
 use App\Models\TransaksiModel;
 use App\Models\PembayaranModel;
+use App\Models\CartsModel;
 
 class Admin extends BaseController
 {
@@ -25,7 +26,9 @@ class Admin extends BaseController
         $this->TransaksiBarangModel = new TransaksiBarangModel();
         $this->TransaksiModel = new TransaksiModel();
         $this->PembayaranModel = new PembayaranModel();
+        $this->CartsModel = new CartsModel();
         $this->session = \Config\Services::session();
+        $this->request = \Config\Services::request();
     }
 
     public function admin()
@@ -86,6 +89,50 @@ class Admin extends BaseController
         }
     }
 
+    public function addcart()
+    {
+        $data = $this->request->isAJAX();
+        if ($data) {
+            $id_barang = $this->request->getVar('id_barang');
+            $id_pembeli = $this->request->getVar('id_pembeli');
+            $data = [
+                'id_barang' => $id_barang,
+                'id_pembeli' => $id_pembeli,
+                'qty' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            $berhasil = $this->CartsModel->insert($data);
+            $msg = [
+                'sukses' => 'Data Berhasil Ditambahkan',
+            ];
+            if ($berhasil) {
+                echo json_encode($msg);
+            }
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+    public function showcart()
+    {
+        $data = $this->request->isAJAX();
+        if ($data) {
+            $id_pembeli = $this->request->getVar('id_pembeli');
+            $data = $this->CartsModel->item($id_pembeli);
+            $no = 1;
+            foreach ($data as $d) {
+                echo '<tr>';
+                echo '<td>' . $no++ . '</td>';
+                echo '<td>' . $d['nama_barang'] . '</td>';
+                echo '<td>' . $d['qty'] . '</td>';
+                echo '<td>' . $d['created_at'] . '</td>';
+                echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
+                echo '</tr>';
+            }
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
     public function daftarproduk()
     {
         if ($this->session->get('id_user') != null) {

@@ -15,6 +15,7 @@ class BarangModel extends Model
     {
         $data = $this->db->table('tbl_barang')
             ->join('tbl_supplier', 'tbl_supplier.id_supplier = tbl_barang.id_supplier')
+            ->where('stok >', 0)
             ->get()->getResultArray();
         return $data;
     }
