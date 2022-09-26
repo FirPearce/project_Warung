@@ -29,6 +29,8 @@ class Admin extends BaseController
         $this->CartsModel = new CartsModel();
         $this->session = \Config\Services::session();
         $this->request = \Config\Services::request();
+        //time zone
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function admin()
@@ -39,12 +41,15 @@ class Admin extends BaseController
                 $pendapatan = $this->TransaksiModel->pendapatan();
                 $totalpelanggan = $this->PelangganModel->totalpelanggan();
                 $totalsupplier = $this->SupplierModel->totalsupplier();
+                $itemcart = $this->CartsModel->allitem();
+                $itemcartjson = json_encode($itemcart);
                 $data = [
                     'title' => 'Dashboard',
                     'produkterjual' => $produkterjual,
                     'pendapatan' => $pendapatan,
                     'totalpelanggan' => $totalpelanggan,
                     'totalsupplier' => $totalsupplier,
+                    'itemcartjson' => $itemcartjson,
                 ];
                 return view('admin/home', $data);
             } else {
@@ -59,8 +64,13 @@ class Admin extends BaseController
     {
         if ($this->session->get('id_user') != null) {
             if ($this->session->get('role') == 'Admin') {
-
-                return view('admin/daftarPendapatan');
+                $itemcart = $this->CartsModel->allitem();
+                $itemcartjson = json_encode($itemcart);
+                $data = [
+                    'title' => 'Daftar Pendapatan',
+                    'itemcartjson' => $itemcartjson,
+                ];
+                return view('admin/daftarPendapatan', $data);
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
@@ -75,10 +85,14 @@ class Admin extends BaseController
             if ($this->session->get('role') == 'Admin') {
                 $namapembeli = $this->PelangganModel->nama_pembeli();
                 $listproduk = $this->BarangModel->listproduk();
+                $itemcart = $this->CartsModel->allitem();
+                $itemcartjson = json_encode($itemcart);
                 $data = [
                     'title' => 'Hitung Belanja',
                     'namapembeli' => $namapembeli,
                     'listproduk' => $listproduk,
+                    'itemcartjson' => $itemcartjson,
+                    'itemcart' => $itemcart,
                 ];
                 return view('admin/hitungBelanja', $data);
             } else {
@@ -108,13 +122,13 @@ class Admin extends BaseController
             ];
             $berhasil = $this->CartsModel->insert($data);
             if ($berhasil) {
-                foreach ($carts as $d) {
-                    echo '<input type="hidden" id="id_produk" name="id_barang[]" value="' . $d['id_barang'] . '">';
+                for ($i = 0; $i < count($carts); $i++) {
+                    echo '<input type="hidden" id="id_produk" name="id_barang' . $carts[$i]['id_barang'] . '" value="' . $carts[$i]['id_barang'] . '">';
                     echo '<tr>';
                     echo '<td>' . $no++ . '</td>';
-                    echo '<td>' . $d['nama_barang'] . '</td>';
-                    echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="' . $d['stok'] . '" value="' . $d['qty'] . '"onchange="ubahangka()">' . '</td>';
-                    echo '<td>Rp.' . $d['harga'] . '</td>';
+                    echo '<td>' . $carts[$i]['nama_barang'] . '</td>';
+                    echo '<td>' . '<input type="number" size="6" name="quantity' . $carts[$i]['id_barang'] . '" min="1" max="' . $carts[$i]['stok'] . '" value="' . $carts[$i]['qty'] . '"onchange="ubahangka(' . $carts[$i]['id_barang'] . ')">' . '</td>';
+                    echo '<td>Rp.' . $carts[$i]['harga'] . '</td>';
                     echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
                     echo '</tr>';
                 }
@@ -130,13 +144,13 @@ class Admin extends BaseController
         $data = $this->CartsModel->item($id_pembeli);
         $no = 1;
         if ($datas) {
-            foreach ($data as $d) {
-                echo '<input type="hidden" id="id_produk" name="id_barang[]" value="' . $d['id_barang'] . '">';
+            for ($i = 0; $i < count($data); $i++) {
+                echo '<input type="hidden" id="id_produk" name="id_barang' . $data[$i]['id_barang'] . '" value="' . $data[$i]['id_barang'] . '">';
                 echo '<tr>';
                 echo '<td>' . $no++ . '</td>';
-                echo '<td>' . $d['nama_barang'] . '</td>';
-                echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="' . $d['stok'] . '" value="' . $d['qty'] . '"onchange="ubahangka()">' . '</td>';
-                echo '<td>Rp.' . $d['harga'] . '</td>';
+                echo '<td>' . $data[$i]['nama_barang'] . '</td>';
+                echo '<td>' . '<input type="number" size="6" name="quantity' . $data[$i]['id_barang'] . '" min="1" max="' . $data[$i]['stok'] . '" value="' . $data[$i]['qty'] . '"onchange="ubahangka(' . $data[$i]['id_barang'] . ')">' . '</td>';
+                echo '<td>Rp.' . $data[$i]['harga'] . '</td>';
                 echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
                 echo '</tr>';
             }
@@ -163,13 +177,13 @@ class Admin extends BaseController
             //update carts model where
             $berhasil = $this->CartsModel->where('id_barang', $id_produk)->where('id_pembeli', $id_pembeli)->set($data)->update();
             if ($berhasil) {
-                foreach ($que as $d) {
-                    echo '<input type="hidden" id="id_produk" name="id_barang[]" value="' . $d['id_barang'] . '">';
+                for ($i = 0; $i < count($que); $i++) {
+                    echo '<input type="hidden" id="id_produk" name="id_barang' . $que[$i]['id_barang'] . '" value="' . $que[$i]['id_barang'] . '">';
                     echo '<tr>';
                     echo '<td>' . $no++ . '</td>';
-                    echo '<td>' . $d['nama_barang'] . '</td>';
-                    echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="' . $d['stok'] . '" value="' . $d['qty'] . '"onchange="ubahangka()">' . '</td>';
-                    echo '<td>Rp.' . $d['harga'] . '</td>';
+                    echo '<td>' . $que[$i]['nama_barang'] . '</td>';
+                    echo '<td>' . '<input type="number" size="6" name="quantity' . $que[$i]['id_barang'] . '" min="1" max="' . $que[$i]['stok'] . '" value="' . $que[$i]['qty'] . '"onchange="ubahangka(' . $que[$i]['id_barang'] . ')">' . '</td>';
+                    echo '<td>Rp.' . $que[$i]['harga'] . '</td>';
                     echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
                     echo '</tr>';
                 }
@@ -178,12 +192,28 @@ class Admin extends BaseController
             exit('Maaf tidak dapat diproses');
         }
     }
+
+    public function barangbypembeli()
+    {
+        $datas = $this->request->isAJAX();
+        $id_pembeli = $this->request->getVar('id_pembeli');
+        $data = $this->BarangModel->listbyid($id_pembeli);
+        if ($datas) {
+            echo json_encode($data);
+        }
+    }
+
     public function daftarproduk()
     {
         if ($this->session->get('id_user') != null) {
             if ($this->session->get('role') == 'Admin') {
-
-                return view('admin/daftarProduk');
+                $itemcart = $this->CartsModel->allitem();
+                $itemcartjson = json_encode($itemcart);
+                $data = [
+                    'title' => 'Daftar Produk',
+                    'itemcart' => $itemcartjson,
+                ];
+                return view('admin/daftarProduk', $data);
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
@@ -196,8 +226,13 @@ class Admin extends BaseController
     {
         if ($this->session->get('id_user') != null) {
             if ($this->session->get('role') == 'Admin') {
-
-                return view('admin/informasiPelanggan');
+                $itemcart = $this->CartsModel->allitem();
+                $itemcartjson = json_encode($itemcart);
+                $data = [
+                    'title' => 'Informasi Pelanggan',
+                    'itemcart' => $itemcartjson,
+                ];
+                return view('admin/informasiPelanggan', $data);
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
@@ -210,8 +245,13 @@ class Admin extends BaseController
     {
         if ($this->session->get('id_user') != null) {
             if ($this->session->get('role') == 'Admin') {
-
-                return view('admin/informasiSupplier');
+                $itemcart = $this->CartsModel->allitem();
+                $itemcartjson = json_encode($itemcart);
+                $data = [
+                    'title' => 'Informasi Supplier',
+                    'itemcart' => $itemcartjson,
+                ];
+                return view('admin/informasiSupplier', $data);
             } else {
                 return redirect()->to(base_url('Login/login'));
             }
@@ -224,8 +264,13 @@ class Admin extends BaseController
     {
         if ($this->session->get('id_user') != null) {
             if ($this->session->get('role') == 'Admin') {
-
-                return view('admin/konten');
+                $itemcart = $this->CartsModel->allitem();
+                $itemcartjson = json_encode($itemcart);
+                $data = [
+                    'title' => 'Konten',
+                    'itemcart' => $itemcartjson,
+                ];
+                return view('admin/konten', $data);
             } else {
                 return redirect()->to(base_url('Login/login'));
             }

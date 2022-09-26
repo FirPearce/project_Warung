@@ -25,4 +25,11 @@ class CartsModel extends Model
             ->get()->getResultArray();
         return $data;
     }
+
+    function allitem()
+    {
+        $data = $this->select('tbl_carts.id_barang')
+            ->get()->getResultArray();
+        return $data;
+    }
 }

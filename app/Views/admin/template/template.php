@@ -338,45 +338,64 @@
         $("#nama-pembeli").change(function() {
             id_pembeli = $(this).val();
             if (id_pembeli != "") {
-                $.ajax({
-                    url: "<?= base_url('Admin/showcart'); ?>",
-                    method: "POST",
-                    data: {
-                        id_pembeli: id_pembeli
-                    },
-                    success: function(data) {
-                        $('#carttable').html(data);
-                        $('.table').DataTable();
-                    }
-                })
+                getAll();
             } else {
                 $('#carttable').html('');
             }
         });
     </script>
 
-    <script>
-        function ubahangka() {
-            var quantity = document.getElementById("quantity").value;
-            var id_produk = document.getElementById("id_produk").value;
-            $.ajax({
-                url: "<?= base_url('Admin/ubahangka'); ?>",
-                method: "POST",
-                data: {
-                    id_pembeli: id_pembeli,
-                    id_produk: id_produk,
-                    quantity: quantity
+    <script type="text/javascript">
+        const arr = <?= $itemcartjson; ?>;
+        for (var i = 0; i < arr.length; i++) {
+            var obj = arr[i];
 
-                },
-                success: function(data) {
-                    getAll();
-                    // console.log(data);
-                }
-            });
+            function ubahangka(obj) {
+                var id_produk = document.getElementsByName("id_barang" + obj)[0].value;
+                var quantity = document.getElementsByName("quantity" + obj)[0].value;
+                $.ajax({
+                    url: "<?= base_url('Admin/ubahangka'); ?>",
+                    method: "POST",
+                    data: {
+                        id_pembeli: id_pembeli,
+                        id_produk: id_produk,
+                        quantity: quantity
+
+                    },
+                    success: function(data) {
+                        getAll();
+                    }
+                });
+            }
         }
     </script>
-
     <script>
+        $("#nama-pembeli").change(function() {
+            id_pembeli = $(this).val();
+            //disabled nama pembeli
+            $("#nama-pembeli option[value=kosong]").attr("disabled", true);
+            $("#nama-barang option").removeAttr("disabled");
+            $.ajax({
+                url: "<?= base_url('Admin/barangbypembeli'); ?>",
+                method: "POST",
+                data: {
+                    id_pembeli: id_pembeli
+                },
+                success: function(data) {
+                    var json = JSON.parse(data);
+                    if (data != "[]") {
+                        var html = '';
+                        var i;
+
+                        for (i = 0; i < json.length; i++) {
+                            $("#nama-barang option[value=" + json[i].id_barang + "]").attr("disabled", true);
+                        }
+                    } else {
+                        $('#nama-barang option').removeAttr('disabled');
+                    }
+                }
+            });
+        });
     </script>
 </body>
 
