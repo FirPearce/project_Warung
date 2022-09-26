@@ -91,23 +91,32 @@ class Admin extends BaseController
 
     public function addcart()
     {
-        $data = $this->request->isAJAX();
-        if ($data) {
-            $id_barang = $this->request->getVar('id_barang');
-            $id_pembeli = $this->request->getVar('id_pembeli');
+        $datas = $this->request->isAJAX();
+        $id_barang = $this->request->getVar('id_barang');
+        $id_pembeli = $this->request->getVar('id_pembeli');
+        $hargabarangnya = $this->HargaModel->hargabarang($id_barang, $id_pembeli);
+        $carts = $this->CartsModel->item($id_pembeli);
+        $no = 1;
+        if ($datas) {
             $data = [
                 'id_barang' => $id_barang,
                 'id_pembeli' => $id_pembeli,
                 'qty' => 1,
+                'harga' => (int)$hargabarangnya['harga'],
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
             $berhasil = $this->CartsModel->insert($data);
-            $msg = [
-                'sukses' => 'Data Berhasil Ditambahkan',
-            ];
             if ($berhasil) {
-                echo json_encode($msg);
+                foreach ($carts as $d) {
+                    echo '<tr>';
+                    echo '<td>' . $no++ . '</td>';
+                    echo '<td>' . $d['nama_barang'] . '</td>';
+                    echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="' . $d['stok'] . '" value="' . $d['qty'] . '"onchange="ubahangka()">' . '</td>';
+                    echo '<td>Rp.' . $d['harga'] . '</td>';
+                    echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
+                    echo '</tr>';
+                }
             }
         } else {
             exit('Maaf tidak dapat diproses');
@@ -124,8 +133,8 @@ class Admin extends BaseController
                 echo '<tr>';
                 echo '<td>' . $no++ . '</td>';
                 echo '<td>' . $d['nama_barang'] . '</td>';
-                echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="1000" value="' . $d['qty'] . '">' . '</td>';
-                echo '<td>Rp.' . $d['harga'] * $d['qty'] . '</td>';
+                echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="' . $d['stok'] . '" value="' . $d['qty'] . '"onchange="ubahangka()">' . '</td>';
+                echo '<td>Rp.' . $d['harga'] . '</td>';
                 echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
                 echo '</tr>';
             }

@@ -305,21 +305,6 @@
     <script>
         var id_pembeli;
         var id_barang;
-        $("#nama-pembeli").change(function() {
-            id_pembeli = $(this).val();
-            $.ajax({
-                url: "<?= base_url('admin/showcart'); ?>",
-                method: "POST",
-                data: {
-                    id_pembeli: id_pembeli
-                },
-                success: function(data) {
-                    $('#carttable').html(data);
-                    $('.table').DataTable();
-                }
-            })
-
-        });
         $("#nama-barang").change(function() {
             id_barang = $(this).val();
             $.ajax({
@@ -330,10 +315,47 @@
                     id_barang: id_barang
                 },
                 success: function(data) {
-                    console.log(data);
+                    getAll();
                 }
             });
         });
+        //create function to get all records from table
+        function getAll() {
+            $.ajax({
+                url: "<?= base_url('Admin/showcart'); ?>",
+                method: "POST",
+                data: {
+                    id_pembeli: id_pembeli
+                },
+                success: function(data) {
+                    $('#carttable').html(data);
+                    $('.table').DataTable();
+                }
+            });
+        }
+        $("#nama-pembeli").change(function() {
+            id_pembeli = $(this).val();
+            if (id_pembeli != "") {
+                $.ajax({
+                    url: "<?= base_url('Admin/showcart'); ?>",
+                    method: "POST",
+                    data: {
+                        id_pembeli: id_pembeli
+                    },
+                    success: function(data) {
+                        $('#carttable').html(data);
+                        $('.table').DataTable();
+                    }
+                })
+            } else {
+                $('#carttable').html('');
+            }
+        });
+    </script>
+    <script>
+        function ubahangka() {
+            var x = document.getElementById("quantity").value;
+        }
     </script>
     <script>
     </script>

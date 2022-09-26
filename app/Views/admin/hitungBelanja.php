@@ -66,8 +66,8 @@
                         <div class="form-group">
                             <label for="nama-pembeli" class="col-form-label">Nama Pembeli</label>
                             <select class="selectpicker show-tick" data-live-search="true" data-width="100%" id="nama-pembeli">
-                                <option data-tokens="" value="">Pilih Pembeli atau Tambah Pembeli</option>
-                                <option data-tokens="" data-divider="true" value="">Pilih Pembeli</option>
+                                <option value="kosong">Pilih Pembeli atau Tambah Pembeli</option>
+                                <option data-divider="true"></option>
                                 <?php foreach ($namapembeli as $d) : ?>
                                     <option data-tokens="<?= $d['nama_pembeli']; ?>" value="<?= $d['id_pembeli']; ?>">(>-->) <?= $d['nama_pembeli']; ?></option>
                                 <?php endforeach; ?>
