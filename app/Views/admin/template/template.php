@@ -395,6 +395,23 @@
                     }
                 }
             });
+
+            //ajax hitung total
+            $.ajax({
+                url: "<?= base_url('Admin/hitungtotal'); ?>",
+                method: "POST",
+                data: {
+                    id_pembeli: id_pembeli
+                },
+                success: function(data) {
+                    var json = JSON.parse(data);
+                    if (json) {
+                        var html = '';
+                        var foot = document.getElementById("cartfoot");
+                        foot.innerHTML = '<tr><td>No</td><td>Nama Produk</td><td>Jumlah: ' + json['totalbarang']['qty'] + '</td><td>Total:<br>Rp. ' + json['totalharga']['harga'] + '</td><td>Hapus Semua</td></tr>';
+                    }
+                }
+            });
         });
     </script>
 </body>

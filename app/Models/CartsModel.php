@@ -26,10 +26,29 @@ class CartsModel extends Model
         return $data;
     }
 
-    function allitem()
+    public function allitem()
     {
         $data = $this->select('tbl_carts.id_barang')
             ->get()->getResultArray();
         return $data;
+    }
+
+    public function total($id_pembeli)
+    {
+        $result = [
+            'totalbarang' => 0,
+            'totalharga' => 0
+        ];
+        $result['totalharga'] = $this->selectSum('tbl_carts.harga')
+            ->join('tbl_pembeli', 'tbl_pembeli.id_pembeli = tbl_carts.id_pembeli')
+            ->where([
+                'tbl_carts.id_pembeli' => $id_pembeli,
+            ])->get()->getRowArray();
+        $result['totalbarang'] = $this->selectSum('tbl_carts.qty')
+            ->join('tbl_pembeli', 'tbl_pembeli.id_pembeli = tbl_carts.id_pembeli')
+            ->where([
+                'tbl_carts.id_pembeli' => $id_pembeli,
+            ])->get()->getRowArray();
+        return $result;
     }
 }

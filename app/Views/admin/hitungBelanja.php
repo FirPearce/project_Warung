@@ -89,8 +89,8 @@
                         <div class="form-group">
                             <label for="nama-produk" class="col-form-label">Produk</label>
                             <select class="selectpicker show-tick" data-width="100%" id="scanproduk">
-                                <option value="scanqr">SCAN QR</option>
                                 <option value="manual">Manual</option>
+                                <option value="scanqr">SCAN QR</option>
                             </select>
                         </div>
                         <div class="form-group" id="pilihan1">
@@ -121,7 +121,7 @@
                                     <tbody id="carttable">
 
                                     </tbody>
-                                    <!-- <tfoot>
+                                    <tfoot id="cartfoot">
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Produk</th>
@@ -129,7 +129,7 @@
                                             <th>Nilai harga</th>
                                             <th>Hapus Semua</th>
                                         </tr>
-                                    </tfoot> -->
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

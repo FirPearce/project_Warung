@@ -202,6 +202,15 @@ class Admin extends BaseController
             echo json_encode($data);
         }
     }
+    public function hitungtotal()
+    {
+        $datas = $this->request->isAJAX();
+        $id_pembeli = $this->request->getVar('id_pembeli');
+        $data = $this->CartsModel->total($id_pembeli);
+        if ($datas) {
+            echo json_encode($data);
+        }
+    }
 
     public function daftarproduk()
     {
