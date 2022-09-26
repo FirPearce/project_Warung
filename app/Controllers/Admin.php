@@ -109,6 +109,7 @@ class Admin extends BaseController
             $berhasil = $this->CartsModel->insert($data);
             if ($berhasil) {
                 foreach ($carts as $d) {
+                    echo '<input type="hidden" id="id_produk" name="id_barang[]" value="' . $d['id_barang'] . '">';
                     echo '<tr>';
                     echo '<td>' . $no++ . '</td>';
                     echo '<td>' . $d['nama_barang'] . '</td>';
@@ -124,12 +125,13 @@ class Admin extends BaseController
     }
     public function showcart()
     {
-        $data = $this->request->isAJAX();
-        if ($data) {
-            $id_pembeli = $this->request->getVar('id_pembeli');
-            $data = $this->CartsModel->item($id_pembeli);
-            $no = 1;
+        $datas = $this->request->isAJAX();
+        $id_pembeli = $this->request->getVar('id_pembeli');
+        $data = $this->CartsModel->item($id_pembeli);
+        $no = 1;
+        if ($datas) {
             foreach ($data as $d) {
+                echo '<input type="hidden" id="id_produk" name="id_barang[]" value="' . $d['id_barang'] . '">';
                 echo '<tr>';
                 echo '<td>' . $no++ . '</td>';
                 echo '<td>' . $d['nama_barang'] . '</td>';
@@ -137,6 +139,40 @@ class Admin extends BaseController
                 echo '<td>Rp.' . $d['harga'] . '</td>';
                 echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
                 echo '</tr>';
+            }
+        } else {
+            exit('Maaf tidak dapat diproses');
+        }
+    }
+
+    public function ubahangka()
+    {
+        $datas = $this->request->isAJAX();
+        $id_pembeli = $this->request->getVar('id_pembeli');
+        $id_produk = $this->request->getVar('id_produk');
+        $quantity = $this->request->getVar('quantity');
+        $hargabarangnya = $this->HargaModel->hargabarang($id_produk, $id_pembeli);
+        $que = $this->CartsModel->item($id_pembeli);
+        $no = 1;
+        if ($datas) {
+            $data = [
+                'qty' => $quantity,
+                'harga' => (int)$hargabarangnya['harga'] * $quantity,
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            //update carts model where
+            $berhasil = $this->CartsModel->where('id_barang', $id_produk)->where('id_pembeli', $id_pembeli)->set($data)->update();
+            if ($berhasil) {
+                foreach ($que as $d) {
+                    echo '<input type="hidden" id="id_produk" name="id_barang[]" value="' . $d['id_barang'] . '">';
+                    echo '<tr>';
+                    echo '<td>' . $no++ . '</td>';
+                    echo '<td>' . $d['nama_barang'] . '</td>';
+                    echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="' . $d['stok'] . '" value="' . $d['qty'] . '"onchange="ubahangka()">' . '</td>';
+                    echo '<td>Rp.' . $d['harga'] . '</td>';
+                    echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
+                    echo '</tr>';
+                }
             }
         } else {
             exit('Maaf tidak dapat diproses');

@@ -283,6 +283,7 @@
             });
         html5QrcodeScanner.render(onScanSuccess);
     </script>
+
     <script>
         var e = document.getElementById("scanproduk");
         var pilihan1 = document.getElementById("pilihan1");
@@ -302,6 +303,7 @@
         e.onchange = onChange;
         onChange();
     </script>
+
     <script>
         var id_pembeli;
         var id_barang;
@@ -352,11 +354,28 @@
             }
         });
     </script>
+
     <script>
         function ubahangka() {
-            var x = document.getElementById("quantity").value;
+            var quantity = document.getElementById("quantity").value;
+            var id_produk = document.getElementById("id_produk").value;
+            $.ajax({
+                url: "<?= base_url('Admin/ubahangka'); ?>",
+                method: "POST",
+                data: {
+                    id_pembeli: id_pembeli,
+                    id_produk: id_produk,
+                    quantity: quantity
+
+                },
+                success: function(data) {
+                    getAll();
+                    // console.log(data);
+                }
+            });
         }
     </script>
+
     <script>
     </script>
 </body>
