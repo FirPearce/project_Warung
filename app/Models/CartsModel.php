@@ -37,7 +37,8 @@ class CartsModel extends Model
     {
         $result = [
             'totalbarang' => 0,
-            'totalharga' => 0
+            'totalharga' => 0,
+            'jumlahbarang' => 0
         ];
         $result['totalharga'] = $this->selectSum('tbl_carts.harga')
             ->join('tbl_pembeli', 'tbl_pembeli.id_pembeli = tbl_carts.id_pembeli')
@@ -45,6 +46,11 @@ class CartsModel extends Model
                 'tbl_carts.id_pembeli' => $id_pembeli,
             ])->get()->getRowArray();
         $result['totalbarang'] = $this->selectSum('tbl_carts.qty')
+            ->join('tbl_pembeli', 'tbl_pembeli.id_pembeli = tbl_carts.id_pembeli')
+            ->where([
+                'tbl_carts.id_pembeli' => $id_pembeli,
+            ])->get()->getRowArray();
+        $result['jumlahbarang'] = $this->selectCount('tbl_carts.id_barang')
             ->join('tbl_pembeli', 'tbl_pembeli.id_pembeli = tbl_carts.id_pembeli')
             ->where([
                 'tbl_carts.id_pembeli' => $id_pembeli,

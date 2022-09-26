@@ -113,7 +113,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Produk</th>
-                                            <th>Jumlah</th>
+                                            <th>Kuantitas</th>
                                             <th>Harga</th>
                                             <th>Pilihan</th>
                                         </tr>
@@ -121,7 +121,7 @@
                                     <tbody id="carttable">
 
                                     </tbody>
-                                    <tfoot id="cartfoot">
+                                    <tfoot id="cartfoot" style="text-align: center;">
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Produk</th>

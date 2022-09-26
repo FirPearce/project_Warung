@@ -396,22 +396,25 @@
                 }
             });
 
-            //ajax hitung total
-            $.ajax({
-                url: "<?= base_url('Admin/hitungtotal'); ?>",
-                method: "POST",
-                data: {
-                    id_pembeli: id_pembeli
-                },
-                success: function(data) {
-                    var json = JSON.parse(data);
-                    if (json) {
-                        var html = '';
-                        var foot = document.getElementById("cartfoot");
-                        foot.innerHTML = '<tr><td>No</td><td>Nama Produk</td><td>Jumlah: ' + json['totalbarang']['qty'] + '</td><td>Total:<br>Rp. ' + json['totalharga']['harga'] + '</td><td>Hapus Semua</td></tr>';
+            //ajax hitung total every 5 seconds
+            setInterval(function() {
+                $.ajax({
+                    url: "<?= base_url('Admin/hitungtotal'); ?>",
+                    method: "POST",
+                    data: {
+                        id_pembeli: id_pembeli
+                    },
+                    success: function(data) {
+                        var json = JSON.parse(data);
+                        if (json) {
+                            var html = '';
+                            var foot = document.getElementById("cartfoot");
+                            foot.innerHTML = '<tr><td>Jumlah: <br>' + json['jumlahbarang']['id_barang'] + ' Barang</td><td>Nama Produk</td><td>Kuantitas: ' + json['totalbarang']['qty'] + '</td><td>Total:<br>Rp.' + json['totalharga']['harga'] + '</td><td>Hapus Semua</td></tr>';
+                        }
                     }
-                }
-            });
+                });
+            }, 500);
+
         });
     </script>
 </body>
