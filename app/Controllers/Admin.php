@@ -124,8 +124,8 @@ class Admin extends BaseController
                 echo '<tr>';
                 echo '<td>' . $no++ . '</td>';
                 echo '<td>' . $d['nama_barang'] . '</td>';
-                echo '<td>' . $d['qty'] . '</td>';
-                echo '<td>' . $d['created_at'] . '</td>';
+                echo '<td>' . '<input type="number" id="quantity" name="quantity" min="1" max="1000" value="' . $d['qty'] . '">' . '</td>';
+                echo '<td>Rp.' . $d['harga'] * $d['qty'] . '</td>';
                 echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
                 echo '</tr>';
             }

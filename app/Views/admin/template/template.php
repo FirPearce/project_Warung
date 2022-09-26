@@ -239,6 +239,8 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
     <script>
         $(document).ready(function() {
             $('.table').DataTable();
@@ -303,26 +305,20 @@
     <script>
         var id_pembeli;
         var id_barang;
-        var tambah_pembeli = document.getElementById("tambah_pembeli");
-        tambah_pembeli.style.display = "none";
         $("#nama-pembeli").change(function() {
             id_pembeli = $(this).val();
-            if (id_pembeli == "tambah") {
-                tambah_pembeli.style.display = "block";
-            } else {
-                tambah_pembeli.style.display = "none";
-                $.ajax({
-                    url: "<?= base_url('admin/showcart'); ?>",
-                    method: "POST",
-                    data: {
-                        id_pembeli: id_pembeli
-                    },
-                    success: function(data) {
-                        $('#carttable').html(data);
-                        $('.table').DataTable();
-                    }
-                })
-            }
+            $.ajax({
+                url: "<?= base_url('admin/showcart'); ?>",
+                method: "POST",
+                data: {
+                    id_pembeli: id_pembeli
+                },
+                success: function(data) {
+                    $('#carttable').html(data);
+                    $('.table').DataTable();
+                }
+            })
+
         });
         $("#nama-barang").change(function() {
             id_barang = $(this).val();
@@ -338,6 +334,8 @@
                 }
             });
         });
+    </script>
+    <script>
     </script>
 </body>
 

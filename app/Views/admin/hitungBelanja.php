@@ -62,23 +62,30 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="POST">
+                    <form action="#" name="hitungform" method="POST">
                         <div class="form-group">
                             <label for="nama-pembeli" class="col-form-label">Nama Pembeli</label>
                             <select class="selectpicker show-tick" data-live-search="true" data-width="100%" id="nama-pembeli">
                                 <option data-tokens="" value="">Pilih Pembeli atau Tambah Pembeli</option>
                                 <option data-tokens="" data-divider="true" value="">Pilih Pembeli</option>
                                 <?php foreach ($namapembeli as $d) : ?>
-                                    <option data-tokens="<?= $d['nama_pembeli']; ?>" value="<?= $d['id_pembeli']; ?>"><?= $d['nama_pembeli']; ?> : <?= $d['email']; ?></option>
+                                    <option data-tokens="<?= $d['nama_pembeli']; ?>" value="<?= $d['id_pembeli']; ?>">(>-->) <?= $d['nama_pembeli']; ?></option>
                                 <?php endforeach; ?>
-                                <option data-tokens="" data-divider="true" value="">Pilih Pembeli</option>
-                                <option data-tokens="" value="tambah">(+)Pembeli tidak ada(Tambah Pembeli)</option>
+                                <!-- <option data-tokens="" data-divider="true" value="">Pilih Pembeli</option>
+                                <option data-tokens="" value="tambah">(+)(Tambah Pembeli Baru)</option> -->
                             </select>
                         </div>
-                        <div class="form-group" id="tambah_pembeli">
+                        <!-- <div class="form-group" id="tambah_pembeli">
                             <label for="tambah_pembeli" class="col-form-label">Tambah Nama Pembeli Baru</label>
                             <input type="text" class="form-control" name="tambah_pembeli" placeholder="Nama Pembeli Baru">
-                        </div>
+                        </div> -->
+                        <!-- <div class="form-group" id="pembeli_baru">
+                            <label for="nama-produk" class="col-form-label">Tipe pembeli</label>
+                            <select class="selectpicker show-tick" data-width="100%" id="tipe_pembeli">
+                                <option value="Warungan">Warungan</option>
+                                <option value="Eceran">Eceran</option>
+                            </select>
+                        </div> -->
                         <div class="form-group">
                             <label for="nama-produk" class="col-form-label">Produk</label>
                             <select class="selectpicker show-tick" data-width="100%" id="scanproduk">
@@ -99,7 +106,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Produk Dipilih</label>
+                            <label for="message-text" class="col-form-label" id="coba">Produk Dipilih</label>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <thead>
