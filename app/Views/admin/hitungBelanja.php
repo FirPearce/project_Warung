@@ -88,7 +88,7 @@
                         </div> -->
                         <div class="form-group">
                             <label for="nama-produk" class="col-form-label">Produk</label>
-                            <select class="selectpicker show-tick" data-width="100%" id="scanproduk">
+                            <select class="selectpicker show-tick" data-width="100%" id="scanproduk" title="Pilih cara menambahkan produk">
                                 <option value="manual">Manual</option>
                                 <option value="scanqr">SCAN QR</option>
                             </select>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="form-group" id="pilihan2">
                             <label for="produk" class="col-form-label">Cari Produk</label>
-                            <select class="selectpicker" data-live-search="true" data-width="100%" multiple data-selected-text-format="count" id="nama-barang">
+                            <select class="selectpicker" data-live-search="true" multiple data-width="100%" id="nama-barang" title="Pilih Barang">
                                 <?php foreach ($listproduk as $d) : ?>
                                     <option value="<?= $d['id_barang']; ?>"><?= $d['nama_barang']; ?> : Stok <?= $d['stok']; ?></option>
                                 <?php endforeach; ?>
@@ -108,7 +108,7 @@
                         <div class="form-group">
                             <label for="message-text" class="col-form-label" id="coba">Produk Dipilih</label>
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
+                                <table class="table table-striped table-bordered" id="tabel">
                                     <thead>
                                         <tr>
                                             <th>No</th>

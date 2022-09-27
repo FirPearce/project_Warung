@@ -57,4 +57,13 @@ class CartsModel extends Model
             ])->get()->getRowArray();
         return $result;
     }
+
+    public function deleteitem($id_pembeli, $id_barang)
+    {
+        $data = $this->where([
+            'id_pembeli' => $id_pembeli,
+            'id_barang' => $id_barang
+        ])->delete();
+        return $data;
+    }
 }

@@ -129,7 +129,7 @@ class Admin extends BaseController
                     echo '<td>' . $carts[$i]['nama_barang'] . '</td>';
                     echo '<td>' . '<input type="number" size="6" name="quantity' . $carts[$i]['id_barang'] . '" min="1" max="' . $carts[$i]['stok'] . '" value="' . $carts[$i]['qty'] . '"onchange="ubahangka(' . $carts[$i]['id_barang'] . ')">' . '</td>';
                     echo '<td>Rp.' . $carts[$i]['harga'] . '</td>';
-                    echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
+                    echo '<td>' . '<a class="btn btn-danger"  type="button" name="hapusbutton' . $carts[$i]['id_barang'] . '" id="hapusbutton" data-value="' . $carts[$i]['id_pembeli'] . '" value="' . $carts[$i]['id_barang'] . '" onclick="hapus(event,' . $carts[$i]['id_barang'] . ')"> Hapus </a>' . '</td>';
                     echo '</tr>';
                 }
             }
@@ -151,7 +151,7 @@ class Admin extends BaseController
                 echo '<td>' . $data[$i]['nama_barang'] . '</td>';
                 echo '<td>' . '<input type="number" size="6" name="quantity' . $data[$i]['id_barang'] . '" min="1" max="' . $data[$i]['stok'] . '" value="' . $data[$i]['qty'] . '"onchange="ubahangka(' . $data[$i]['id_barang'] . ')">' . '</td>';
                 echo '<td>Rp.' . $data[$i]['harga'] . '</td>';
-                echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
+                echo '<td>' . '<a class="btn btn-danger" type="button" name="hapusbutton' . $data[$i]['id_barang'] . '" id="hapusbutton" data-value="' . $data[$i]['id_pembeli'] . '" value="' . $data[$i]['id_barang'] . '" onclick="hapus(event,' . $data[$i]['id_barang'] . ')"> Hapus </a>' . '</td>';
                 echo '</tr>';
             }
         } else {
@@ -184,7 +184,7 @@ class Admin extends BaseController
                     echo '<td>' . $que[$i]['nama_barang'] . '</td>';
                     echo '<td>' . '<input type="number" size="6" name="quantity' . $que[$i]['id_barang'] . '" min="1" max="' . $que[$i]['stok'] . '" value="' . $que[$i]['qty'] . '"onchange="ubahangka(' . $que[$i]['id_barang'] . ')">' . '</td>';
                     echo '<td>Rp.' . $que[$i]['harga'] . '</td>';
-                    echo '<td>' . '<a class="btn btn-danger" href="#"> Hapus </a>' . '</td>';
+                    echo '<td>' . '<a class="btn btn-danger" type="button" name="hapusbutton' . $que[$i]['id_barang'] . '" id="hapusbutton" data-value="' . $que[$i]['id_pembeli'] . '" value="' . $que[$i]['id_barang'] . '" onclick="hapus(event,' . $que[$i]['id_barang'] . ')"> Hapus </a>' . '</td>';
                     echo '</tr>';
                 }
             }
@@ -209,6 +209,19 @@ class Admin extends BaseController
         $data = $this->CartsModel->total($id_pembeli);
         if ($datas) {
             echo json_encode($data);
+        }
+    }
+
+    public function hapusitem()
+    {
+        $datas = $this->request->isAJAX();
+        $id_pembeli = $this->request->getVar('valuepembeli');
+        $id_barang = $this->request->getVar('valuebarang');
+        if ($datas) {
+            $data = $this->CartsModel->deleteitem($id_pembeli, $id_barang);
+            if ($data) {
+                echo "berhasil";
+            }
         }
     }
 

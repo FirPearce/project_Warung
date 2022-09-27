@@ -241,6 +241,10 @@
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
     <script>
         $(document).ready(function() {
             $('.table').DataTable();
@@ -317,11 +321,16 @@
                     id_barang: id_barang
                 },
                 success: function(data) {
+                    disabledoption(id_barang);
                     getAll();
                 }
             });
         });
-        //create function to get all records from table
+
+        function disabledoption(id_barang) {
+            $("#nama-barang option[value=" + id_barang + "]").attr("disabled", true);
+        }
+
         function getAll() {
             $.ajax({
                 url: "<?= base_url('Admin/showcart'); ?>",
@@ -330,8 +339,9 @@
                     id_pembeli: id_pembeli
                 },
                 success: function(data) {
-                    $('#carttable').html(data);
-                    $('.table').DataTable();
+                    $('#tabel').DataTable().destroy();
+                    $('#tabel').find('tbody').empty();
+                    $('#tabel').find('tbody').html(data);
                 }
             });
         }
@@ -340,7 +350,8 @@
             if (id_pembeli != "") {
                 getAll();
             } else {
-                $('#carttable').html('');
+                $('#tabel').DataTable().destroy();
+                $('#tabel').find('tbody').empty();
             }
         });
     </script>
@@ -416,6 +427,59 @@
             }, 500);
 
         });
+    </script>
+    <script>
+        for (var i = 0; i < arr.length; i++) {
+            var obj2 = arr[i];
+
+            function hapus(e, obj2) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    width: 550,
+                    text: "Item ke-(" + obj2 + ") akan dihapus dari keranjang!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var button = document.getElementsByName("hapusbutton" + obj2)[0];
+                        var valuepembeli = button.getAttribute("data-value");
+                        var valuebarang = button.getAttribute("value");
+                        $.ajax({
+                            url: "<?= base_url('Admin/hapusitem'); ?>",
+                            method: "POST",
+                            data: {
+                                valuepembeli: valuepembeli,
+                                valuebarang: valuebarang
+                            },
+                            success: function(data) {
+                                getAll();
+                                removebarang(valuebarang);
+                                Swal.fire({
+                                    icon: 'success',
+                                    width: 550,
+                                    title: 'Success',
+                                    text: 'Item berhasil dihapus dari keranjang!',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                });
+                            }
+                        });
+                    }
+                })
+            }
+
+            function removebarang(valuebarang) {
+                $("#nama-barang option[value=" + valuebarang + "]").removeAttr("disabled");
+                $("#nama-barang").val(null).trigger('change');
+
+            }
+
+        }
     </script>
 </body>
 
