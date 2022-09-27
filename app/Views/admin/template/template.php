@@ -434,10 +434,11 @@
 
             function hapus(e, obj2) {
                 e.preventDefault();
+
                 Swal.fire({
                     title: 'Apakah anda yakin?',
                     width: 550,
-                    text: "Item ke-(" + obj2 + ") akan dihapus dari keranjang!",
+                    text: "Item akan dihapus dari keranjang!",
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -476,7 +477,6 @@
             function removebarang(valuebarang) {
                 $("#nama-barang option[value=" + valuebarang + "]").removeAttr("disabled");
                 $("#nama-barang").val(null).trigger('change');
-
             }
 
         }
